@@ -1,13 +1,14 @@
 # FetchDoc CLI
 
-FetchDoc is a command-line tool that helps developers quickly access the documentation of any npm package. With a simple command, FetchDoc opens the official repository of the specified npm package in your default browser, allowing you to dive straight into the docs.
+FetchDoc is a command-line tool that assists developers in swiftly accessing the documentation of any npm package. With a straightforward command, FetchDoc either opens the official repository of the specified npm package in your default browser or displays the README content directly in your terminal, streamlining your journey into the docs.
 
 <!-- ![Demo GIF](path_to_demo_gif.gif) You can add a demo GIF here -->
 
 ## Features
 
 - **Quick Access**: Instantly open the official repository of any npm package.
-- **Display README**: Option to display the README content directly in the terminal.
+- **Display README in Terminal**: Instead of navigating to the browser, you can now view the README content directly in your terminal using the `-r` flag.
+- **Error Handling**: Improved error messages to guide you when things don't go as planned.
 - **Search Packages**: (Coming Soon) Search for npm packages by keywords.
 - **List Dependencies**: (Coming Soon) Display a list of dependencies for the given npm package.
 
@@ -31,21 +32,29 @@ To display the README content in the terminal:
 fetchdoc <package-name> -r
 ```
 
+## Testing
+
+We've added unit tests to ensure the reliability of the tool. To run the tests:
+
+```bash
+npm test
+```
+
 ## Contributing
 
-We welcome contributions from the community! If you'd like to contribute, here are a few guidelines:
+We're always excited about contributions from the community! If you're considering contributing, here's a step-by-step guide:
 
-1. **Fork the Repository**: Click on the 'Fork' button at the top right corner of this page.
-2. **Clone Your Fork**: Find the URL of your fork, then run `git clone <your-fork-url>`.
+1. **Fork the Repository**: Use the 'Fork' button at the top right.
+2. **Clone Your Fork**: Get the URL of your fork and then `git clone <your-fork-url>`.
 3. **Navigate to the Directory**: `cd fetchdoc-cli`.
 4. **Create a New Branch**: `git checkout -b new-feature`.
-5. **Make Changes**: Implement your new feature or fix a bug.
-6. **Commit Your Changes**: `git commit -am 'Add some feature'`.
-7. **Push to the Branch**: `git push origin new-feature`.
-8. **Open a Pull Request**: Go to the main page of the repository and click on 'New pull request'.
+5. **Make Your Changes**: Implement a feature or fix a bug.
+6. **Commit**: `git commit -am 'Add some feature'`.
+7. **Push**: `git push origin new-feature`.
+8. **Pull Request**: On the main repository page, click 'New pull request'.
 
-Please ensure your code adheres to our coding standards and has adequate test coverage.
+Ensure your code aligns with our standards and includes tests.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+MIT License. Refer to the [LICENSE](LICENSE) file for more details.

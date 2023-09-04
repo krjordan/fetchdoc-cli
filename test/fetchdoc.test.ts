@@ -1,6 +1,10 @@
 import { expect } from 'chai'
 import nock from 'nock'
-import { fetchDoc } from '../src/index'
+import sinon from 'sinon'
+import * as spawnWrapper from '../src/spawnWrapper'
+import { fetchDoc, fetchReadmeContent, displayInPager } from '../src/index'
+import { PassThrough } from 'stream'
+import { ChildProcess } from 'child_process'
 
 nock.disableNetConnect()
 
@@ -33,5 +37,53 @@ describe('fetchDoc', () => {
 				'Repository URL not found for the package some-package'
 			)
 		}
+	})
+})
+
+describe('fetchReadmeContent', () => {
+	it('should fetch the README content for a given repo Url', async () => {
+		const repoUrl = 'https://github.com/lodash/lodash'
+
+		// Mock the GitHub API response for repo info
+		nock('https://api.github.com').get('/repos/lodash/lodash').reply(200, {
+			default_branch: 'main'
+		})
+
+		// Mock the GitHub raw content response for README
+		nock('https://raw.githubusercontent.com')
+			.get('/lodash/lodash/main/README.md')
+			.reply(200, '# Lodash README Content')
+
+		const content = await fetchReadmeContent(repoUrl)
+		expect(content).to.equal('# Lodash README Content')
+	})
+})
+
+describe('displayInPager', () => {
+	let spawnStub: sinon.SinonStub
+
+	beforeEach(() => {
+		const stubbedChildProcess = {
+			stdin: new PassThrough(),
+			stdout: new PassThrough(),
+			stderr: new PassThrough(),
+			on: function (event: string, callback: Function) {
+				// Do nothing for now
+				return this // Return the stubbed ChildProcess
+			}
+		} as unknown as ChildProcess
+
+		spawnStub = sinon.stub(spawnWrapper, 'spawn').returns(stubbedChildProcess)
+	})
+
+	afterEach(() => {
+		// Restore the original spawn function after each test
+		spawnStub.restore()
+	})
+
+	it('should spawn the less process with the correct arguments', () => {
+		const content = '# Lodash README Content'
+		displayInPager(content)
+		sinon.assert.calledWith(spawnStub, 'less', [])
 	})
 })
