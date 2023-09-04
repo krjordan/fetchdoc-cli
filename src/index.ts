@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import yargs from 'yargs'
 import { spawn } from './spawnWrapper'
 import { Readable } from 'stream'
