@@ -33,20 +33,20 @@ yargs(hideBin(process.argv))
 	.command(
 		'fetchdoc [package]',
 		'Fetch documentation for a given npm package',
-		yargs => {
+		(yargs) => {
 			yargs
 				.positional('package', {
 					describe: 'npm package name',
 					type: 'string',
-					demandOption: true
+					demandOption: true,
 				})
 				.option('r', {
 					alias: 'readme',
 					type: 'boolean',
-					description: 'Display the README in the terminal'
+					description: 'Display the README in the terminal',
 				})
 		},
-		async argv => {
+		async (argv) => {
 			const docUrl = await fetchDoc(argv.package as string)
 			if (argv.r && docUrl) {
 				console.log('repoUrl', docUrl)
@@ -56,7 +56,7 @@ yargs(hideBin(process.argv))
 				console.log(`Opening documentation for ${argv.package}...`)
 				await open(docUrl)
 			}
-		}
+		},
 	)
 	.help().argv
 
@@ -65,7 +65,7 @@ export function displayInPager(content: string): void {
 	readable.push(content)
 	readable.push(null)
 	const less = spawn('less', [], {
-		stdio: ['pipe', process.stdout, process.stderr]
+		stdio: ['pipe', process.stdout, process.stderr],
 	})
 
 	if (less.stdin) {
@@ -79,7 +79,7 @@ export async function fetchReadmeContent(repoUrl: string): Promise<string> {
 
 	// Fetch the default branch name for the repository
 	const repoInfoResponse = await axios.get(
-		`https://api.github.com/repos/${owner}/${repo}`
+		`https://api.github.com/repos/${owner}/${repo}`,
 	)
 	const defaultBranch = repoInfoResponse.data.default_branch
 
