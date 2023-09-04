@@ -5,6 +5,12 @@ import { hideBin } from 'yargs/helpers'
 import axios from 'axios'
 import open from 'open'
 
+/**
+ * Fetches the documentation URL for a given package name.
+ *
+ * @param {string} packageName - The name of the package.
+ * @return {Promise<string | void>} The documentation URL of the package, or void if the URL is not found.
+ */
 export async function fetchDoc(packageName: string): Promise<string | void> {
 	try {
 		const npmRegistryUrl = `https://registry.npmjs.org/${packageName}`
@@ -60,6 +66,12 @@ yargs(hideBin(process.argv))
 	)
 	.help().argv
 
+/**
+ * Display the given content in a pager.
+ *
+ * @param {string} content - The content to be displayed.
+ * @return {void} This function does not return a value.
+ */
 export function displayInPager(content: string): void {
 	const readable = new Readable()
 	readable.push(content)
@@ -73,6 +85,12 @@ export function displayInPager(content: string): void {
 	}
 }
 
+/**
+ * Fetches the content of the README file for a given repository.
+ *
+ * @param {string} repoUrl - The URL of the repository.
+ * @return {Promise<string>} The content of the README file as a string.
+ */
 export async function fetchReadmeContent(repoUrl: string): Promise<string> {
 	// Extract owner and repo from repoUrl
 	const [, , , owner, repo] = repoUrl.split('/')
