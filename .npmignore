@@ -1,0 +1,13 @@
+node_modules/
+*.log
+*.test.js
+src/
+test/
+.git/
+.github/
+.vscode/
+*.tsconfig.json
+*.eslintrc.json
+*.prettierrc
+CONTRIBUTING.md
+package-lock.json

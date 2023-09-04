@@ -1,8 +1,8 @@
 {
 	"name": "fetchdoc-cli",
 	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
+	"description": "FetchDoc is a command-line tool that assists developers in swiftly accessing the documentation or README of any npm package. With a straightforward command, FetchDoc either opens the official repository of the specified npm package in your default browser or displays the README content directly in your terminal, streamlining your journey into the docs.",
+	"main": "dist/index.js",
 	"scripts": {
 		"build": "tsc",
 		"start": "node dist/index.js",
@@ -10,9 +10,20 @@
 		"lint:fix": "eslint 'src/**/*.{js,ts}' --fix",
 		"test": "mocha -r ts-node/register 'test/**/*.test.ts'"
 	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
+	"keywords": [
+		"npm",
+		"documentation",
+		"cli",
+		"readme",
+		"fetch",
+		"repository",
+		"open",
+		"terminal",
+		"yargs",
+		"axios"
+	],
+	"author": "Ryan Jordan",
+	"license": "MIT",
 	"dependencies": {
 		"axios": "^1.5.0",
 		"open": "^8.4.2",
@@ -54,5 +65,16 @@
 			"eslint --fix",
 			"git add"
 		]
-	}
+	},
+	"directories": {
+		"test": "test"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/krjordan/fetchdoc-cli.git"
+	},
+	"bugs": {
+		"url": "https://github.com/krjordan/fetchdoc-cli/issues"
+	},
+	"homepage": "https://github.com/krjordan/fetchdoc-cli#readme"
 }
