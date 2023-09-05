@@ -7,6 +7,11 @@ import { hideBin } from 'yargs/helpers'
 import axios from 'axios'
 import open from 'open'
 
+interface Args {
+	package: string
+	r?: boolean
+}
+
 /**
  * Fetches the documentation URL for a given package name.
  *
@@ -38,35 +43,49 @@ export async function fetchDoc(packageName: string): Promise<string | void> {
 }
 
 yargs(hideBin(process.argv))
+	.usage('Usage: $0 <package> [options]')
+	.positional('package', {
+		describe: 'npm package name',
+		type: 'string',
+		demandOption: true,
+	})
+	.option('r', {
+		alias: 'readme',
+		type: 'boolean',
+		description: 'Display the README in the terminal',
+	})
+	.help()
+	.wrap(process.stdout.columns || 80)
+	.check((argv) => {
+		if (!argv.package) {
+			throw new Error('The <package> argument is required.')
+		}
+		return true
+	})
 	.command(
-		'fetchdoc [package]',
-		'Fetch documentation for a given npm package',
-		(yargs) => {
-			yargs
-				.positional('package', {
-					describe: 'npm package name',
-					type: 'string',
-					demandOption: true,
-				})
-				.option('r', {
-					alias: 'readme',
-					type: 'boolean',
-					description: 'Display the README in the terminal',
-				})
-		},
+		'$0 [package]',
+		'default command',
+		() => {},
 		async (argv) => {
-			const docUrl = await fetchDoc(argv.package as string)
-			if (argv.r && docUrl) {
-				console.log('repoUrl', docUrl)
-				const readmeContent = await fetchReadmeContent(docUrl)
-				displayInPager(readmeContent)
-			} else if (docUrl) {
-				console.log(`Opening documentation for ${argv.package}...`)
-				await open(docUrl)
+			try {
+				const args = argv as Args
+				const docUrl = await fetchDoc(args.package)
+
+				console.log('Fetched doc URL:', docUrl) // Log the fetched URL
+
+				if (args.r && docUrl) {
+					console.log('Fetching README for', docUrl)
+					const readmeContent = await fetchReadmeContent(docUrl)
+					displayInPager(readmeContent)
+				} else if (docUrl) {
+					console.log(`Opening documentation for ${args.package}...`)
+					await open(docUrl)
+				}
+			} catch (error) {
+				console.error('Error occurred:', error)
 			}
 		},
-	)
-	.help().argv
+	).argv
 
 /**
  * Display the given content in a pager.

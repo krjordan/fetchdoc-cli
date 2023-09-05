@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "CommonJS",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"strict": true,
+		"noEmit": true,
+		"skipLibCheck": true
+	},
+	"include": ["test/**/*.ts"],
+	"exclude": ["node_modules"]
+}

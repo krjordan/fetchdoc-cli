@@ -1,17 +1,17 @@
 {
 	"name": "fetchdoc-cli",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "FetchDoc is a command-line tool that assists developers in swiftly accessing the documentation or README of any npm package. With a straightforward command, FetchDoc either opens the official repository of the specified npm package in your default browser or displays the README content directly in your terminal, streamlining your journey into the docs.",
 	"main": "./dist/index.js",
 	"bin": {
 		"fetchdoc": "./dist/index.js"
 	},
 	"scripts": {
-		"build": "rollup -c",
+		"build": "tsc -p tsconfig.json && rollup -c",
 		"start": "node ./dist/index.js",
 		"lint": "eslint 'src/**/*.{js,ts}'",
 		"lint:fix": "eslint 'src/**/*.{js,ts}' --fix",
-		"test": "mocha -r ts-node/register 'test/**/*.test.ts'",
+		"test": "TS_NODE_PROJECT=tsconfig.test.json mocha --require ts-node/register test/**/*.test.ts",
 		"version": "auto-changelog -p && git add CHANGELOG.md",
 		"postbuild": "chmod +x dist/index.js"
 	},
@@ -35,6 +35,7 @@
 	"dependencies": {
 		"axios": "^1.5.0",
 		"open": "^8.4.2",
+		"tslib": "^2.6.2",
 		"yargs": "^17.7.2"
 	},
 	"devDependencies": {
