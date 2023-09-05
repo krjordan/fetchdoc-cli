@@ -1,6 +1,6 @@
 {
 	"name": "fetchdoc-cli",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "FetchDoc is a command-line tool that assists developers in swiftly accessing the documentation or README of any npm package. With a straightforward command, FetchDoc either opens the official repository of the specified npm package in your default browser or displays the README content directly in your terminal, streamlining your journey into the docs.",
 	"main": "./dist/index.js",
 	"bin": {
@@ -52,6 +52,7 @@
 		"@types/yargs": "^17.0.24",
 		"@typescript-eslint/eslint-plugin": "^6.6.0",
 		"@typescript-eslint/parser": "^6.6.0",
+		"auto-changelog": "^2.4.0",
 		"chai": "^4.3.8",
 		"eslint": "^8.48.0",
 		"eslint-config-prettier": "^9.0.0",
