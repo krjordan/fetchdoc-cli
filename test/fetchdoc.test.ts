@@ -7,6 +7,9 @@ import { PassThrough } from 'stream'
 import { ChildProcess } from 'child_process'
 
 nock.disableNetConnect()
+nock.emitter.on('no match', (req) => {
+	console.error(`No Nock match for request: ${req.method} ${req.href}`)
+})
 
 describe('fetchDoc', () => {
 	afterEach(() => {
@@ -18,7 +21,7 @@ describe('fetchDoc', () => {
 		nock('https://registry.npmjs.org')
 			.get('/lodash')
 			.reply(200, {
-				repository: { url: 'git+https://github.com/lodash/lodash.git' }
+				repository: { url: 'git+https://github.com/lodash/lodash.git' },
 			})
 
 		const url = await fetchDoc('lodash')
@@ -34,7 +37,7 @@ describe('fetchDoc', () => {
 			throw new Error('Expected fetchDoc to throw, but it did not')
 		} catch (err: any) {
 			expect(err.message).to.equal(
-				'Repository URL not found for the package some-package'
+				'Repository URL not found for the package some-package',
 			)
 		}
 	})
@@ -46,7 +49,7 @@ describe('fetchReadmeContent', () => {
 
 		// Mock the GitHub API response for repo info
 		nock('https://api.github.com').get('/repos/lodash/lodash').reply(200, {
-			default_branch: 'main'
+			default_branch: 'main',
 		})
 
 		// Mock the GitHub raw content response for README
@@ -70,7 +73,7 @@ describe('displayInPager', () => {
 			on: function (event: string, callback: Function) {
 				// Do nothing for now
 				return this // Return the stubbed ChildProcess
-			}
+			},
 		} as unknown as ChildProcess
 
 		spawnStub = sinon.stub(spawnWrapper, 'spawn').returns(stubbedChildProcess)
