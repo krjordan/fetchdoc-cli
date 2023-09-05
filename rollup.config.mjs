@@ -12,13 +12,14 @@ export default {
 		format: 'cjs',
 		banner: '#!/usr/bin/env node',
 	},
-	external: ['tslib', 'child_process', 'axios'],
+	external: ['tslib', 'child_process', 'axios', 'yargs'],
 	plugins: [
 		typescript({ exclude: 'node_modules' }),
 		nodeResolve({ exportConditions: ['node'], preferBuiltins: false }),
 		commonjs({ includes: 'node_modules/**' }),
 		json(),
 		replace({
+			preventAssignment: true,
 			VERSION: JSON.stringify(pkg.version),
 		}),
 	],
