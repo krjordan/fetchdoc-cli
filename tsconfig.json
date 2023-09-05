@@ -2,13 +2,13 @@
 	"compilerOptions": {
 		"rootDir": "./src",
 		"target": "ESNext",
-		"module": "ESNext",
+		"module": "CommonJS",
 		"esModuleInterop": true,
-        "moduleResolution": "node",
+		"moduleResolution": "node",
 		"forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true,
+		"allowSyntheticDefaultImports": true,
 		"strict": true,
-        "noEmit": true,
+		"noEmit": true,
 		"skipLibCheck": true,
 		"outDir": "./dist"
 	},
