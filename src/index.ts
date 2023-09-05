@@ -55,7 +55,7 @@ yargs(hideBin(process.argv))
 		description: 'Display the README in the terminal',
 	})
 	.help()
-	.wrap(yargs.terminalWidth())
+	.wrap(process.stdout.columns || 80)
 	.check((argv) => {
 		if (!argv.package) {
 			throw new Error('The <package> argument is required.')
