@@ -13,7 +13,7 @@
 		"lint:fix": "eslint 'src/**/*.{js,ts}' --fix",
 		"test": "mocha -r ts-node/register 'test/**/*.test.ts'",
 		"version": "auto-changelog -p && git add CHANGELOG.md",
-        "postbuild": "chmod +x dist/index.js"
+		"postbuild": "chmod +x dist/index.js"
 	},
 	"auto-changelog": {
 		"breakingPattern": "BREAKING CHANGE:"
